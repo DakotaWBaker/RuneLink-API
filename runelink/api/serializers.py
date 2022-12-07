@@ -1,7 +1,11 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
-from .models import CustomUser, Child, Parent, Tag
-from .fields import ForeignKeyField, CustomManyToManyField
+from .models import *
+from .fields import *
+class SkillLevelsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SkillLevels
+        fields = '__all__'
 
 class CustomUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
@@ -9,10 +13,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
     )
     username = serializers.CharField()
     password = serializers.CharField(min_length=8, write_only=True)
-    
+    skills = SkillLevelsSerializer(many=True, read_only=True)
+
     class Meta:
         model = CustomUser
-        fields = ('email', 'username', 'password', 'first_name', 'last_name', 'rsn' )
+        fields = ('email', 'username', 'password', 'first_name', 'last_name', 'rsn', 'date_joined', 'skills')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):

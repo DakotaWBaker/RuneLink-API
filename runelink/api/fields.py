@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import *
 
 class ForeignKeyField(serializers.PrimaryKeyRelatedField):
     """
@@ -48,3 +49,8 @@ class CustomManyToManyField(serializers.RelatedField):
         raise serializers.ValidationError(
             "No instance exists with id \"%s\"." % str(id),
         )
+class SkillLevelsField(serializers.RelatedField):
+     def to_representation(self, value):
+        return {
+            "total": value.total
+        }

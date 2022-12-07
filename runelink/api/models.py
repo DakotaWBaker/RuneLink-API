@@ -4,9 +4,36 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser (AbstractUser):
     rsn = models.CharField(null = True, max_length= 12)
-
+    
     def __str__(self):
         return self.username
+
+class SkillLevels (models.Model):
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE, null = True, blank = True, related_name="skills")
+    total = models.IntegerField(null = True, max_length=4)
+    attack = models.IntegerField(null = True, max_length=4)
+    defense = models.IntegerField(null = True, max_length=4)
+    strength = models.IntegerField(null = True, max_length=4)
+    hitpoints = models.IntegerField(null = True, max_length=4)
+    ranged = models.IntegerField(null = True, max_length=4)
+    prayer = models.IntegerField(null = True, max_length=4)
+    magic = models.IntegerField(null = True, max_length=4)
+    cooking = models.IntegerField(null = True, max_length=4)
+    woodcutting = models.IntegerField(null = True, max_length=4)
+    fletching = models.IntegerField(null = True, max_length=4)
+    fishing = models.IntegerField(null = True, max_length=4)
+    firemaking = models.IntegerField(null = True, max_length=4)
+    crafting = models.IntegerField(null = True, max_length=4)
+    smithing = models.IntegerField(null = True, max_length=4)
+    mining = models.IntegerField(null = True, max_length=4)
+    herblore = models.IntegerField(null = True, max_length=4)
+    agility= models.IntegerField(null = True, max_length=4)
+    thieving = models.IntegerField(null = True, max_length=4)
+    slayer = models.IntegerField(null = True, max_length=4)
+    farming = models.IntegerField(null = True, max_length=4)
+    runecrafting = models.IntegerField(null = True, max_length=4)
+    hunter = models.IntegerField(null = True, max_length=4)
+    construction = models.IntegerField(null = True, max_length=4)
 
 class Child(models.Model):
     title = models.CharField(max_length=255, null=True, blank=True)

@@ -12,7 +12,7 @@ router.register(r'tag', TagViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('user/signup/', UserCreate.as_view(), name="create_user"),
-    path('users/<int:pk>/', UserDetail.as_view(), name="get_user_details"),
+    path('users/<int:pk>/',  UserDetail.as_view(), name="get_user_details"),
     path("grandexchange", views.get_ge_prices, name="restaurant data json"),
     path("gesearch", views.ge_search),
     path('user/login/', jwt_views.TokenObtainPairView.as_view(), name='token_create'),
