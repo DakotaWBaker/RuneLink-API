@@ -35,6 +35,21 @@ class SkillLevels (models.Model):
     hunter = models.IntegerField(null = True, max_length=4)
     construction = models.IntegerField(null = True, max_length=4)
 
+class GroupFinder(models.Model):
+    body = models.CharField(null = True, max_length= 255)
+    activity = models.CharField(null = True, max_length = 50)
+    players_needed = models.IntegerField(null = True)
+    time_posted = models.DateTimeField(auto_now_add= True, null = True)
+    user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True)
+
+class GroupFinderComments(models.Model):
+    comment = body = models.CharField(null = True, max_length= 255)
+    post = models.ForeignKey(GroupFinder, on_delete = models.CASCADE, null = True)
+    user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True)
+
+
+
+
 class Child(models.Model):
     title = models.CharField(max_length=255, null=True, blank=True)
 

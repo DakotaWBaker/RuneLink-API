@@ -10,16 +10,12 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from rest_framework import pagination
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
-from .serializers import (
-    CustomUserSerializer,
-    ChildSerializer,
-    ParentSerializer,
-    TagSerializer,
-)
-from .models import CustomUser, Parent, Child, Tag, SkillLevels
+from .serializers import *
+from .models import *
 from rest_framework import viewsets
 from rest_framework.response import Response
 from OSRS_Hiscores import Hiscores
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -108,6 +104,15 @@ class UserCreate(APIView):
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+class GroupFinderViewSet(ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = GroupFinder.objects.all().order_by('-time_posted')
+    serializer_class = GroupFinderSerializer
+    
+   
+   
 
 class UserDetail(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
