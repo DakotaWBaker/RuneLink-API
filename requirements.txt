@@ -36,7 +36,7 @@ PyJWT==2.6.0
 pyparsing==3.0.9
 pytest==7.2.0
 pytz==2022.6
-requests==2.27.1
+requests==2.26.0
 rsa==4.9
 six==1.16.0
 soupsieve==2.3.2.post1
