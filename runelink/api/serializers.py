@@ -41,29 +41,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 
+
+class GroupFinderCommentsSerializer(serializers.ModelSerializer):
+    user = ForeignKeyField(queryset=CustomUser.objects.all(), serializer=CustomUserSerializer)
+    class Meta:
+        model = GroupFinderComments
+        fields = ('id', 'comment', 'time_posted', 'user', 'post')
+
 class GroupFinderSerializer(serializers.ModelSerializer):
     user = ForeignKeyField(queryset=CustomUser.objects.all(), serializer=CustomUserSerializer)
-
+    comments = GroupFinderCommentsSerializer(many = True, read_only=True)
     class Meta:
         model = GroupFinder
-        fields = ('id', 'body', 'activity', 'players_needed', 'time_posted', 'user')
-
-
-class ChildSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Child
-        fields = "__all__"
-
-
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = "__all__"
-
-
-class ParentSerializer(serializers.ModelSerializer):
-    child = ForeignKeyField(queryset=Child.objects.all(), serializer=ChildSerializer)
-
-    class Meta:
-        model = Parent
-        fields = "__all__"
+        fields = ('id', 'body', 'activity', 'players_needed', 'time_posted', 'user', 'comments')

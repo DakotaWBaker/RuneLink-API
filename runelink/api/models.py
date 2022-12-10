@@ -41,13 +41,16 @@ class GroupFinder(models.Model):
     players_needed = models.IntegerField(null = True)
     time_posted = models.DateTimeField(auto_now_add= True, null = True)
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True)
-
+   
+    
 class GroupFinderComments(models.Model):
-    comment = body = models.CharField(null = True, max_length= 255)
-    post = models.ForeignKey(GroupFinder, on_delete = models.CASCADE, null = True)
+    comment = models.CharField(null = True, max_length= 255)
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, null = True)
+    time_posted = models.DateTimeField(auto_now_add= True, null = True)
+    post = models.ForeignKey(GroupFinder, on_delete = models.CASCADE, null = True, related_name='comments')
 
-
+    def __str__(self):
+        return self.comment
 
 
 class Child(models.Model):

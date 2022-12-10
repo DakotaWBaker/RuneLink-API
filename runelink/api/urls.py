@@ -5,10 +5,8 @@ from rest_framework import routers
 from .views import *
 
 router = routers.DefaultRouter()
-router.register(r'parent', ParentViewSet)
 router.register(r'groupfinder', GroupFinderViewSet)
-router.register(r'child', ChildViewSet)
-router.register(r'tag', TagViewSet)
+router.register(r'comment', GroupFinderCommentsViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

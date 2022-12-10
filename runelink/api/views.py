@@ -16,6 +16,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from OSRS_Hiscores import Hiscores
 from django.views.decorators.csrf import csrf_exempt
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
@@ -110,8 +111,18 @@ class GroupFinderViewSet(ModelViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = GroupFinder.objects.all().order_by('-time_posted')
     serializer_class = GroupFinderSerializer
+
     
-   
+class GroupFinderCommentsViewSet(ModelViewSet):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = GroupFinderComments.objects.all().order_by('-time_posted')
+    serializer_class = GroupFinderCommentsSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['post']
+
+    # def perform_create(self, serializer):
+    #     serializer.save(post=self.request.post)
+    
    
 
 class UserDetail(generics.RetrieveAPIView):
@@ -120,19 +131,3 @@ class UserDetail(generics.RetrieveAPIView):
     serializer_class = CustomUserSerializer
 
 
-class ChildViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Child.objects.all()
-    serializer_class = ChildSerializer
-
-
-class TagViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
-
-
-class ParentViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Parent.objects.all()
-    serializer_class = ParentSerializer
